@@ -8,11 +8,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     permissions:
       id-token: write
       contents: read
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -20,9 +18,11 @@ jobs:
       - name: Configure AWS credentials (us-east-1)
         uses: aws-actions/configure-aws-credentials@v3
         with:
-          role-to-assume: arn:aws:iam::161366540648:role/GitHubOIDCRole
+          role-to-assume: arn:aws:iam::298659883070:role/GitHubOIDCRole
           aws-region: us-east-1
 
       - name: Trigger CodePipeline (us-east-1)
         run: |
-          aws codepipeline start-pipeline-execution             --name pipeline-EKS-deployment             --region us-east-1
+          aws codepipeline start-pipeline-execution \
+            --name pipeline-EKS-deployment \
+            --region us-east-1
